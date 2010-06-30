@@ -50,8 +50,9 @@ end
 
 toolver = "4.2.1"
 
-toolchain = "#{droid_root}/prebuilt/#{droid_host}/toolchain/arm-eabi-#{toolver}"
-alib = "#{droid_root}/out/target/product/#{droid_target}/obj/lib"
+toolchain = "#{droid_root}/prebuilt/#{droid_host}/arm-eabi-#{toolver}"
+# alib = "#{droid_root}/out/target/product/#{droid_target}/obj/lib"
+alib = "#{droid_root}/platforms/android-3/arch-arm/usr/lib"
 
 # many compiler/linker flags were extracted from
 # build/core/combo/linux-arm.mk file.
@@ -69,6 +70,9 @@ cflags =
      "-fmessage-length=0",
      "-Wno-multichar",
      #"-mthumb-interwork",
+
+     "-I#{droid_root}/platforms/android-3/common/include",
+     "-I#{droid_root}/platforms/android-3/arch-arm/usr/include",
 
      "-I#{droid_root}/system/core/include",
      "-I#{droid_root}/hardware/libhardware/include",
@@ -93,7 +97,7 @@ cflags =
 link_args =
     [
      "-Bdynamic",
-     "-Wl,-T,#{droid_root}/build/core/armelf.x",
+     "-Wl,-T,#{droid_root}/prebuilt/linux-x86/arm-eabi-4.2.1/arm-eabi/lib/ldscripts/armelf.x",
      "-Wl,-dynamic-linker,/system/bin/linker",
      "-Wl,--gc-sections",
      "-Wl,-z,nocopyreloc",
@@ -111,7 +115,7 @@ link_args =
 shlib_args =
     [
      "-nostdlib",
-     "-Wl,-T,#{droid_root}/build/core/armelf.xsc",
+     "-Wl,-T,#{droid_root}/prebuilt/linux-x86/arm-eabi-4.2.1/arm-eabi/lib/ldscripts/armelf.xsc",
      "-Wl,--gc-sections",
      "-Wl,-shared,-Bsymbolic",
      "-L#{alib}",
